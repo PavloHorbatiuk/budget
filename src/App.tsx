@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import {Container, Grid, Icon, Segment, Statistic} from "semantic-ui-react";
+import {Container, Grid, Icon, Segment} from "semantic-ui-react";
 import MainHeader from "./components/MainHeader";
 import NewEntryForm from "./components/NewEntryForm";
+import DisplayBalance from "./components/DisplayBalance";
+import EntryLine from "./components/EntryLine";
 
 
 function App() {
@@ -12,50 +14,21 @@ function App() {
                 <MainHeader
                     type={'h1'}
                     title={"Budget"}/>
-                <Statistic size='small'>
-                    <Statistic.Label>Your Balance:</Statistic.Label>
-                    <Statistic.Value>2.550.53</Statistic.Value>
-                </Statistic>
-
+                <DisplayBalance title={'Your Balance:'} value={2550.53} size={"small"}/>
                 <Segment textAlign="center">
                     <Grid columns={2}>
                         <Grid.Row>
                             <Grid.Column>
-                                <Statistic size="tiny" color='green'>
-                                    <Statistic.Label style={{textAlign: "left"}}>
-                                        Income:
-                                    </Statistic.Label>
-                                    <Statistic.Value>1,045.50</Statistic.Value>
-                                </Statistic>
+                                <DisplayBalance title={"Income"} value={1253.54} color={"green"}/>
                             </Grid.Column>
                             <Grid.Column>
-                                <Statistic size="tiny" color='red'>
-                                    <Statistic.Label style={{textAlign: "left"}}>
-                                        Expenses:
-                                    </Statistic.Label>
-                                    <Statistic.Value>623.50</Statistic.Value>
-                                </Statistic>
+                                <DisplayBalance title={'Expenses'} value={623.50} color={"red"}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Segment>
                 <MainHeader title={"History"} type={"h3"}/>
-                <Segment color="red">
-                    <Grid columns={3} textAlign="right">
-                        <Grid.Row>
-                            <Grid.Column width={10} textAlign="left">
-                                Something
-                            </Grid.Column>
-                            <Grid.Column width={3} textAlign="right">
-                                $10,00
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <Icon name="edit" bordered/>
-                                <Icon name="trash" bordered/>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </Segment>
+                <EntryLine description={"Somthing expensive"} price={"1200"} isExpensive={true}/>
                 <Segment color="green">
                     <Grid columns={3} textAlign="right">
                         <Grid.Row>
