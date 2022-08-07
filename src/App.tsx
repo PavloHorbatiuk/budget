@@ -4,7 +4,6 @@ import { Container, Grid, Segment } from "semantic-ui-react";
 import MainHeader from "./components/MainHeader";
 import NewEntryForm from "./components/NewEntryForm";
 import DisplayBalance from "./components/DisplayBalance";
-import EntryLine from "./components/EntryLine";
 import EntriLines from './components/EntriLines';
 export interface initialEntryType {
     id: number,
@@ -20,6 +19,14 @@ function App() {
         const result = entries.filter(f => f.id !== id)
         setEntries(result)
     }
+    const addEntry = (description: string, value: string, isExpansive: boolean) => setEntries(entries.concat([{
+        id: Date.now(),
+        description: description,
+        price: +value,
+        isIxpensive: true,
+    }]))
+
+
     return (
         <div className="App">
             <Container>
@@ -50,7 +57,7 @@ function App() {
                 </Segment>
                 <MainHeader title={"History"} type={"h3"} />
                 <EntriLines entries={entries} deleteEntri={deleteEntri} />
-                <NewEntryForm />
+                <NewEntryForm addEntry={addEntry} />
             </Container>
         </div>
     );

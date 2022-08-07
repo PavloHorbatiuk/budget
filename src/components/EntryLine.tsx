@@ -22,8 +22,14 @@ const EntryLine: React.FC<EntryLineType> = ({ id, description, price, isIxpensiv
                         {price}
                     </Grid.Column>
                     <Grid.Column width={3}>
-                        <Icon name="edit" bordered />
-                        <Icon onClick={() => deleteEntri(id)} name="trash" bordered />
+                        <Icon
+                            name="edit"
+                            bordered />
+                        <Icon
+                            style={{ cursor: "pointer" }}
+                            onClick={() => deleteEntri(id)}
+                            name="trash"
+                            bordered />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
