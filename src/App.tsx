@@ -19,11 +19,11 @@ function App() {
         const result = entries.filter(f => f.id !== id)
         setEntries(result)
     }
-    const addEntry = (description: string, value: string, isExpansive: boolean) => setEntries(entries.concat([{
+    const addEntry = (description: string, value: string, expensiveStatus: boolean) => setEntries(entries.concat([{
         id: Date.now(),
         description: description,
         price: +value,
-        isIxpensive: true,
+        isIxpensive: expensiveStatus,
     }]))
 
 
@@ -55,8 +55,12 @@ function App() {
                         </Grid.Row>
                     </Grid>
                 </Segment>
-                <MainHeader title={"History"} type={"h3"} />
-                <EntriLines entries={entries} deleteEntri={deleteEntri} />
+                <MainHeader
+                    title={"History"}
+                    type={"h3"} />
+                <EntriLines
+                    entries={entries}
+                    deleteEntri={deleteEntri} />
                 <NewEntryForm addEntry={addEntry} />
             </Container>
         </div>

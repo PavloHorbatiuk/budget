@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Checkbox, Form, Segment } from "semantic-ui-react";
 import ButtonSaveOrCancel from "./ButtonSaveOrCancel";
 
 type FormType = {
-    addEntry: (description: string, value: string, isExpansive: boolean) => void
+    addEntry: (description: string, value: string, expensiveStatus: boolean) => void
 }
 
 export const NewEntryForm: React.FC<FormType> = ({ addEntry }) => {
@@ -14,11 +14,13 @@ export const NewEntryForm: React.FC<FormType> = ({ addEntry }) => {
     const valueHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
     const clickHandler = () => {
         addEntry(description, value, check);
-        console.log(check);
         setValue('');
         setdescription('')
     }
-    const checkedHandler = (e: FormEvent<HTMLInputElement>) => setCheck(e.currentTarget.checked)
+    const checkedHandler = () => setCheck(!check);
+
+
+
     const isDisabled = description.length < 2 || value === "0"
     return (
         <Form unstackable>
