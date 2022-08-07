@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Checkbox, Form, Segment } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 import ButtonSaveOrCancel from "./ButtonSaveOrCancel";
+import { EntryForm } from './EntryForm';
 
 type FormType = {
     addEntry: (description: string, value: string, expensiveStatus: boolean) => void
@@ -24,32 +25,14 @@ export const NewEntryForm: React.FC<FormType> = ({ addEntry }) => {
     const isDisabled = description.length < 2 || value === "0"
     return (
         <Form unstackable>
-            <Form.Group>
-                <Form.Input
-                    value={description}
-                    icon='tags'
-                    width={12}
-                    label="Descriptions"
-                    onChange={descriptionHandler}
-                    placeholder="New shinng thing" />
-                <Form.Input
-                    type='number'
-                    value={value}
-                    width={4}
-                    label='Value'
-                    onChange={valueHandler}
-                    placeholder="100.00"
-                    icon="dollar"
-                    iconPosition="left">
-                </Form.Input>
-            </Form.Group>
-            <Segment compact>
-                <Checkbox
-                    checked={check}
-                    label='Is expensive?'
-                    onChange={checkedHandler}
-                    toggle />
-            </Segment>
+            <EntryForm
+                description={description}
+                value={value}
+                check={check}
+                descriptionHandler={descriptionHandler}
+                valueHandler={valueHandler}
+                checkedHandler={checkedHandler}
+            />
             <ButtonSaveOrCancel
                 disabled={isDisabled}
                 clickHandler={clickHandler}
