@@ -19,13 +19,15 @@ function App() {
         const result = entries.filter(f => f.id !== id)
         setEntries(result)
     }
-    const addEntry = (description: string, value: string, expensiveStatus: boolean) => setEntries(entries.concat([{
-        id: Date.now(),
-        description: description,
-        price: +value,
-        isIxpensive: expensiveStatus,
-    }]))
-
+    const addEntry = (description: string, value: string, expensiveStatus: boolean) => {
+        const result = entries.concat({
+            id: Date.now(),
+            description,
+            price: +value,
+            isIxpensive: expensiveStatus,
+        })
+        setEntries(result)
+    }
 
     return (
         <div className="App">
