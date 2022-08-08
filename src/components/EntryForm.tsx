@@ -1,46 +1,57 @@
-import React, { ChangeEvent } from 'react'
-import { Checkbox, Form, Segment } from 'semantic-ui-react'
+import React, { ChangeEvent, Fragment } from 'react';
+import { Checkbox, Form, Segment } from 'semantic-ui-react';
 type EntryFormType = {
-	description: string
-	value: string
-	check: boolean
-	setDescription: (value: string) => void
-	setValue: (value: string) => void
-	setCheck: (isExpensive: boolean) => void
-}
-export const EntryForm: React.FC<EntryFormType> = ({ description, value, check, setDescription, setValue, setCheck }) => {
-
-	const valueHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-	const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
+	description: string;
+	value: string;
+	check: boolean;
+	setDescription: (value: string) => void;
+	setValue: (value: string) => void;
+	setCheck: (isExpensive: boolean) => void;
+};
+export const EntryForm: React.FC<EntryFormType> = ({
+	description,
+	value,
+	check,
+	setDescription,
+	setValue,
+	setCheck,
+}) => {
+	const valueHandler = (e: ChangeEvent<HTMLInputElement>) =>
+		setValue(e.currentTarget.value);
+	const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) =>
+		setDescription(e.currentTarget.value);
 	const checkOnchange = () => setCheck(!check);
 
 	return (
-		<>
-			<Form.Group>
+		<Fragment>
+			<Form.Group widths={3}>
 				<Form.Input
 					value={description}
-					icon='tags'
+					icon="tags"
 					width={12}
 					label="Descriptions"
 					onChange={descriptionHandler}
-					placeholder="New shinng thing" />
+					placeholder="New shinng thing"
+				/>
 				<Form.Input
-					type='number'
+					type="number"
 					value={value}
-					width={4}
-					label='Value'
+					width={2}
+					label="Value"
 					onChange={valueHandler}
 					placeholder="100.00"
 					icon="dollar"
-					iconPosition="left" />
+					iconPosition="left"
+				></Form.Input>
 			</Form.Group>
 			<Segment compact>
 				<Checkbox
 					checked={check}
-					label='Is expensive?'
+					label="Is expensive?"
 					onChange={checkOnchange}
-					toggle />
+					toggle
+				/>
 			</Segment>
-		</>
-	)
-}
+		</Fragment>
+	);
+};
