@@ -5,7 +5,7 @@ type EntryLineType = {
 	id: number;
 	description: string;
 	price: number;
-	isIxpensive: boolean;
+	isExpensive: boolean;
 	deleteEntri: (id: number) => void;
 	setIsOpen: (isOpen: boolean) => void;
 };
@@ -14,11 +14,11 @@ const EntryLine: React.FC<EntryLineType> = ({
 	id,
 	description,
 	price,
-	isIxpensive,
+	isExpensive,
 	deleteEntri,
 	setIsOpen,
 }) => {
-	const finaleColor = isIxpensive ? 'red' : 'green';
+	const finaleColor = isExpensive ? 'red' : 'green';
 	return (
 		<Segment color={finaleColor}>
 			<Grid columns={3} textAlign="right">

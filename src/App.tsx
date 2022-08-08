@@ -4,14 +4,14 @@ import { Container, Grid, Segment } from 'semantic-ui-react';
 import MainHeader from './components/MainHeader';
 import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
-import EntriLines from './components/EntriLines';
+import EntryLines from './components/EntriLines';
 import { ModalEdit } from './components/ModalEdit';
 
 export interface initialEntryType {
 	id: number;
 	description: string;
 	price: number;
-	isIxpensive: boolean;
+	isExpensive: boolean;
 }
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 			id: Date.now(),
 			description,
 			price: +value,
-			isIxpensive: expensiveStatus,
+			isExpensive: expensiveStatus,
 		});
 		setEntries(result);
 	};
@@ -74,7 +74,7 @@ function App() {
 					</Grid>
 				</Segment>
 				<MainHeader title={'History'} type={'h3'} />
-				<EntriLines
+				<EntryLines
 					entries={entries}
 					deleteEntri={deleteEntri}
 					updateEntries={updateEntries}
@@ -111,18 +111,18 @@ let initialEntry = [
 		id: 1,
 		description: 'beer',
 		price: 2,
-		isIxpensive: false,
+		isExpensive: false,
 	},
 	{
 		id: 2,
 		description: 'milk',
 		price: 3,
-		isIxpensive: false,
+		isExpensive: false,
 	},
 	{
 		id: 3,
 		description: 'samsung S22',
 		price: 1200,
-		isIxpensive: true,
+		isExpensive: true,
 	},
 ];

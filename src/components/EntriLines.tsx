@@ -12,7 +12,6 @@ type EntriLinesType = {
 const EntriLines: React.FC<EntriLinesType> = ({
 	entries,
 	deleteEntri,
-	updateEntries,
 	setIsOpen,
 }) => {
 	return (
