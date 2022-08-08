@@ -6,11 +6,11 @@ import { EntryForm } from './EntryForm';
 type FormType = {
 	addEntry: (
 		description: string,
-		value: string,
+		value: string | number,
 		expensiveStatus: boolean
 	) => void;
 	description: string;
-	value: string;
+	value: string | number;
 	check: boolean;
 	setDescription: (value: string) => void;
 	setValue: (value: string) => void;
@@ -35,7 +35,7 @@ export const NewEntryForm: React.FC<FormType> = ({
 	};
 
 	return (
-		<Form unstackable>
+		<Form>
 			<EntryForm
 				description={description}
 				value={value}

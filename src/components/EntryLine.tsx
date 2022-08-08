@@ -6,8 +6,9 @@ type EntryLineType = {
 	description: string;
 	price: number;
 	isExpensive: boolean;
-	deleteEntri: (id: number) => void;
+	deleteEntry: (id: number) => void;
 	setIsOpen: (isOpen: boolean) => void;
+	updateEntries: (id: number) => void;
 };
 
 const EntryLine: React.FC<EntryLineType> = ({
@@ -15,8 +16,9 @@ const EntryLine: React.FC<EntryLineType> = ({
 	description,
 	price,
 	isExpensive,
-	deleteEntri,
+	deleteEntry,
 	setIsOpen,
+	updateEntries,
 }) => {
 	const finaleColor = isExpensive ? 'red' : 'green';
 	return (
@@ -30,10 +32,10 @@ const EntryLine: React.FC<EntryLineType> = ({
 						{price}
 					</Grid.Column>
 					<Grid.Column width={3}>
-						<Icon name="edit" bordered onClick={() => setIsOpen(true)} />
+						<Icon name="edit" bordered onClick={() => updateEntries(id)} />
 						<Icon
 							style={{ cursor: 'pointer' }}
-							onClick={() => deleteEntri(id)}
+							onClick={() => deleteEntry(id)}
 							name="trash"
 							bordered
 						/>

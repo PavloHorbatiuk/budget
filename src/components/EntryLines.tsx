@@ -1,18 +1,19 @@
 import React from 'react';
 
-import { initialEntryType } from './../App';
+import { initialEntryType } from '../App';
 import { Container } from 'semantic-ui-react';
 import EntryLine from './EntryLine';
-type EntriLinesType = {
+type EntryLinesType = {
 	entries: initialEntryType[];
-	deleteEntri: (id: number) => void;
+	deleteEntry: (id: number) => void;
 	updateEntries: (id: number) => void;
 	setIsOpen: (isOpen: boolean) => void;
 };
-const EntriLines: React.FC<EntriLinesType> = ({
+const EntryLines: React.FC<EntryLinesType> = ({
 	entries,
-	deleteEntri,
+	deleteEntry,
 	setIsOpen,
+	updateEntries,
 }) => {
 	return (
 		<Container>
@@ -20,12 +21,13 @@ const EntriLines: React.FC<EntriLinesType> = ({
 				<EntryLine
 					key={e.id}
 					{...e}
-					deleteEntri={deleteEntri}
+					deleteEntry={deleteEntry}
 					setIsOpen={setIsOpen}
+					updateEntries={updateEntries}
 				/>
 			))}
 		</Container>
 	);
 };
 
-export default EntriLines;
+export default EntryLines;

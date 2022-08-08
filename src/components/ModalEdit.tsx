@@ -6,7 +6,7 @@ type ModalType = {
 	isOpen: boolean;
 	setIsOpen: (isOpen: boolean) => void;
 	description: string;
-	value: string;
+	value: string | number;
 	check: boolean;
 	setDescription: (value: string) => void;
 	setValue: (value: string) => void;

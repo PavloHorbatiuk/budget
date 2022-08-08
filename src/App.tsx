@@ -4,7 +4,7 @@ import { Container, Grid, Segment } from 'semantic-ui-react';
 import MainHeader from './components/MainHeader';
 import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
-import EntryLines from './components/EntriLines';
+import EntryLines from './components/EntryLines';
 import { ModalEdit } from './components/ModalEdit';
 
 export interface initialEntryType {
@@ -17,17 +17,17 @@ export interface initialEntryType {
 function App() {
 	const [entries, setEntries] = useState<initialEntryType[]>(initialEntry);
 	const [description, setDescription] = useState('');
-	const [value, setValue] = useState('');
-	const [check, setCheck] = useState(false);
+	const [value, setValue] = useState<string | number>('');
+	const [isExpense, setIsExpense] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const deleteEntri = (id: number) => {
+	const deleteEntry = (id: number) => {
 		const result = entries.filter(f => f.id !== id);
 		setEntries(result);
 	};
 	const addEntry = (
 		description: string,
-		value: string,
+		value: string | number,
 		expensiveStatus: boolean
 	) => {
 		const result = entries.concat({
@@ -39,9 +39,15 @@ function App() {
 		setEntries(result);
 	};
 	const updateEntries = (id: number) => {
-		const copyOfEntries = [...entries];
-		const index = entries.findIndex(i => i.id === id);
-		copyOfEntries[index] = { ...copyOfEntries[index] };
+		if (id) {
+			const index = entries.findIndex(e => e.id === id);
+			const entry = entries[index];
+			setDescription(entry.description);
+			setValue(entry.price);
+			setIsExpense(entry.isExpensive);
+			setIsOpen(true);
+			console.log(entry);
+		}
 	};
 	const isDisabled = description.length < 2 || value === '';
 	return (
@@ -76,7 +82,7 @@ function App() {
 				<MainHeader title={'History'} type={'h3'} />
 				<EntryLines
 					entries={entries}
-					deleteEntri={deleteEntri}
+					deleteEntry={deleteEntry}
 					updateEntries={updateEntries}
 					setIsOpen={setIsOpen}
 				/>
@@ -84,10 +90,10 @@ function App() {
 					addEntry={addEntry}
 					description={description}
 					value={value}
-					check={check}
+					check={isExpense}
 					setDescription={setDescription}
 					setValue={setValue}
-					setCheck={setCheck}
+					setCheck={setIsExpense}
 					isDisabled={isDisabled}
 				/>
 				<ModalEdit
@@ -95,10 +101,10 @@ function App() {
 					setIsOpen={setIsOpen}
 					description={description}
 					value={value}
-					check={check}
+					check={isExpense}
 					setDescription={setDescription}
 					setValue={setValue}
-					setCheck={setCheck}
+					setCheck={setIsExpense}
 				/>
 			</Container>
 		</div>

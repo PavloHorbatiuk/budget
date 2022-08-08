@@ -2,7 +2,7 @@ import React, { ChangeEvent, Fragment } from 'react';
 import { Checkbox, Form, Segment } from 'semantic-ui-react';
 type EntryFormType = {
 	description: string;
-	value: string;
+	value: string | number;
 	check: boolean;
 	setDescription: (value: string) => void;
 	setValue: (value: string) => void;
@@ -31,7 +31,7 @@ export const EntryForm: React.FC<EntryFormType> = ({
 					width={12}
 					label="Descriptions"
 					onChange={descriptionHandler}
-					placeholder="New shinng thing"
+					placeholder="New shining thing"
 				/>
 				<Form.Input
 					type="number"
