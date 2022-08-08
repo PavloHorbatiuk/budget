@@ -6,8 +6,10 @@ import EntryLine from './EntryLine';
 type EntriLinesType = {
 	entries: initialEntryType[],
 	deleteEntri: (id: number) => void
+	updateEntries: (id: number) => void
+	setIsOpen: (isOpen: boolean) => void
 }
-const EntriLines: React.FC<EntriLinesType> = ({ entries, deleteEntri }) => {
+const EntriLines: React.FC<EntriLinesType> = ({ entries, deleteEntri, updateEntries, setIsOpen }) => {
 
 	return (
 		<Container>{
@@ -16,6 +18,7 @@ const EntriLines: React.FC<EntriLinesType> = ({ entries, deleteEntri }) => {
 					key={e.id}
 					{...e}
 					deleteEntri={deleteEntri}
+									setIsOpen={setIsOpen}
 				/>)
 		}</Container>
 	)

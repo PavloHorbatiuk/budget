@@ -5,6 +5,8 @@ import MainHeader from "./components/MainHeader";
 import NewEntryForm from "./components/NewEntryForm";
 import DisplayBalance from "./components/DisplayBalance";
 import EntriLines from './components/EntriLines';
+import { ModalEdit } from './components/ModalEdit';
+
 export interface initialEntryType {
     id: number,
     description: string,
@@ -14,6 +16,11 @@ export interface initialEntryType {
 
 function App() {
     const [entries, setEntries] = useState<initialEntryType[]>(initialEntry)
+    const [description, setDescription] = useState('')
+    const [value, setValue] = useState('')
+    const [check, setCheck] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+
 
     const deleteEntri = (id: number) => {
         const result = entries.filter(f => f.id !== id)
@@ -28,7 +35,13 @@ function App() {
         })
         setEntries(result)
     }
+    const updateEntries = (id: number) => {
+        const copyOfEntries = [...entries]
+        const index = entries.findIndex(i => i.id === id)
+        copyOfEntries[index] = { ...copyOfEntries[index] }
 
+    };
+    const isDisabled = description.length < 2 || value === ""
     return (
         <div className="App">
             <Container>
@@ -39,7 +52,8 @@ function App() {
                     title={'Your Balance:'}
                     value={2550.53}
                     size={"small"} />
-                <Segment textAlign="center">
+                <Segment
+                    textAlign="center">
                     <Grid columns={2}>
                         <Grid.Row>
                             <Grid.Column>
@@ -62,8 +76,29 @@ function App() {
                     type={"h3"} />
                 <EntriLines
                     entries={entries}
-                    deleteEntri={deleteEntri} />
-                <NewEntryForm addEntry={addEntry} />
+                    deleteEntri={deleteEntri}
+                    updateEntries={updateEntries}
+                    setIsOpen={setIsOpen} />
+                <NewEntryForm
+                    addEntry={addEntry}
+                    description={description}
+                    value={value}
+                    check={check}
+                    setDescription={setDescription}
+                    setValue={setValue}
+                    setCheck={setCheck}
+                    isDisabled={isDisabled}
+                />
+                <ModalEdit
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    description={description}
+                    value={value}
+                    check={check}
+                    setDescription={setDescription}
+                    setValue={setValue}
+                    setCheck={setCheck}
+                />
             </Container>
         </div>
     );

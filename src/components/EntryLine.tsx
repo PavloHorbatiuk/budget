@@ -1,15 +1,18 @@
 import React from 'react';
 import { Grid, Icon, Segment } from "semantic-ui-react";
 
+
 type EntryLineType = {
     description: string
     price: number
     isIxpensive: boolean,
     deleteEntri: (id: number) => void
     id: number
+    setIsOpen: (isOpen: boolean) => void
 }
 
-const EntryLine: React.FC<EntryLineType> = ({ id, description, price, isIxpensive, deleteEntri }) => {
+const EntryLine: React.FC<EntryLineType> = ({ id, description, price, isIxpensive, deleteEntri, setIsOpen }) => {
+
     const finaleColor = isIxpensive ? 'red' : 'green'
     return (
         <Segment color={finaleColor}>
@@ -24,7 +27,9 @@ const EntryLine: React.FC<EntryLineType> = ({ id, description, price, isIxpensiv
                     <Grid.Column width={3}>
                         <Icon
                             name="edit"
-                            bordered />
+                            bordered
+                            onClick={() => setIsOpen(true)}
+                        />
                         <Icon
                             style={{ cursor: "pointer" }}
                             onClick={() => deleteEntri(id)}
@@ -33,6 +38,7 @@ const EntryLine: React.FC<EntryLineType> = ({ id, description, price, isIxpensiv
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
+
         </Segment>
     );
 }

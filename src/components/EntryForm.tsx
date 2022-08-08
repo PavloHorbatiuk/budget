@@ -4,11 +4,16 @@ type EntryFormType = {
 	description: string
 	value: string
 	check: boolean
-	descriptionHandler: (e: ChangeEvent<HTMLInputElement>) => void
-	valueHandler: (e: ChangeEvent<HTMLInputElement>) => void
-	checkedHandler: () => void
+	setDescription: (value: string) => void
+	setValue: (value: string) => void
+	setCheck: (isExpensive: boolean) => void
 }
-export const EntryForm: React.FC<EntryFormType> = ({ description, value, check, descriptionHandler, valueHandler, checkedHandler }) => {
+export const EntryForm: React.FC<EntryFormType> = ({ description, value, check, setDescription, setValue, setCheck }) => {
+
+	const valueHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
+	const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) => setDescription(e.currentTarget.value)
+	const checkOnchange = () => setCheck(!check);
+
 	return (
 		<>
 			<Form.Group>
@@ -27,14 +32,13 @@ export const EntryForm: React.FC<EntryFormType> = ({ description, value, check, 
 					onChange={valueHandler}
 					placeholder="100.00"
 					icon="dollar"
-					iconPosition="left">
-				</Form.Input>
+					iconPosition="left" />
 			</Form.Group>
 			<Segment compact>
 				<Checkbox
 					checked={check}
 					label='Is expensive?'
-					onChange={checkedHandler}
+					onChange={checkOnchange}
 					toggle />
 			</Segment>
 		</>
