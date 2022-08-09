@@ -6,13 +6,7 @@ import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
 import EntryLines from './components/EntryLines';
 import { ModalEdit } from './components/ModalEdit';
-
-export interface initialEntryType {
-	id: number;
-	description: string;
-	price: number;
-	isExpensive: boolean;
-}
+import { initialEntryType } from './components/reducers/entires.reducer';
 
 function App() {
 	const [entries, setEntries] = useState<initialEntryType[]>(initialEntry);
@@ -21,6 +15,9 @@ function App() {
 	const [isExpense, setIsExpense] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [entryId, setEntryId] = useState<number>();
+	const [totalExpense, setTotalExpense] = useState(0);
+	const [totalIncomes, setTotalIncomes] = useState(0);
+	const [totalBudget, setTotalBudget] = useState(0);
 
 	useEffect(() => {
 		if (!isOpen && entryId) {
@@ -40,10 +37,13 @@ function App() {
 		let incomes = 0;
 		let expenses = 0;
 		entries.forEach(e => {
-			if (!e.isExpensive) incomes += e.price;
+			if (e.isExpensive) incomes += e.price;
 			else expenses += e.price;
 		});
-		let total = incomes + expenses;
+		let total = incomes - expenses;
+		setTotalBudget(total);
+		setTotalIncomes(incomes);
+		setTotalExpense(expenses);
 	}, [entries]);
 
 	const deleteEntry = (id: number) => {
@@ -78,7 +78,6 @@ function App() {
 			setIsExpense(entry.isExpensive);
 			setIsOpen(true);
 			setEntryId(id);
-			console.log(entry);
 		}
 	};
 	const isDisabled = description.length < 2 || value === '';
@@ -89,7 +88,7 @@ function App() {
 				<MainHeader type={'h1'} title={'Budget'} />
 				<DisplayBalance
 					title={'Your Balance:'}
-					value={2550.53}
+					value={totalBudget}
 					size={'small'}
 				/>
 				<Segment textAlign="center">
@@ -98,14 +97,14 @@ function App() {
 							<Grid.Column>
 								<DisplayBalance
 									title={'Income'}
-									value={1253.54}
+									value={totalIncomes}
 									color={'green'}
 								/>
 							</Grid.Column>
 							<Grid.Column>
 								<DisplayBalance
 									title={'Expenses'}
-									value={623.5}
+									value={totalExpense}
 									color={'red'}
 								/>
 							</Grid.Column>
