@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 import MainHeader from './components/MainHeader';
@@ -20,24 +20,45 @@ function App() {
 	const [value, setValue] = useState<string | number>('');
 	const [isExpense, setIsExpense] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [entryId, setEntryId] = useState<number>();
+
+	useEffect(() => {
+		if (!isOpen && entryId) {
+			const index = entries.findIndex(i => i.id === entryId);
+			const copyEntries = [...entries];
+			const updateEntry = copyEntries[index];
+			updateEntry.description = description;
+			updateEntry.isExpensive = isExpense;
+			updateEntry.price = +value;
+			setEntries(copyEntries);
+			resetEntry();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isOpen]);
 
 	const deleteEntry = (id: number) => {
 		const result = entries.filter(f => f.id !== id);
 		setEntries(result);
 	};
-	const addEntry = (
-		description: string,
-		value: string | number,
-		expensiveStatus: boolean
-	) => {
+	const makeId = new Date().getTime();
+
+	const addEntry = () => {
 		const result = entries.concat({
-			id: Date.now(),
+			id: makeId,
 			description,
 			price: +value,
-			isExpensive: expensiveStatus,
+			isExpensive: isExpense,
 		});
 		setEntries(result);
+		resetEntry();
 	};
+
+	const resetEntry = () => {
+		setValue('');
+		setDescription('');
+		setIsExpense(true);
+	};
+
 	const updateEntries = (id: number) => {
 		if (id) {
 			const index = entries.findIndex(e => e.id === id);
@@ -46,10 +67,12 @@ function App() {
 			setValue(entry.price);
 			setIsExpense(entry.isExpensive);
 			setIsOpen(true);
+			setEntryId(id);
 			console.log(entry);
 		}
 	};
 	const isDisabled = description.length < 2 || value === '';
+
 	return (
 		<div className="App">
 			<Container>

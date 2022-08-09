@@ -4,11 +4,7 @@ import ButtonSaveOrCancel from './ButtonSaveOrCancel';
 import { EntryForm } from './EntryForm';
 
 type FormType = {
-	addEntry: (
-		description: string,
-		value: string | number,
-		expensiveStatus: boolean
-	) => void;
+	addEntry: () => void;
 	description: string;
 	value: string | number;
 	check: boolean;
@@ -29,13 +25,11 @@ export const NewEntryForm: React.FC<FormType> = ({
 	isDisabled,
 }) => {
 	const clickHandler = () => {
-		addEntry(description, value, check);
-		setValue('');
-		setDescription('');
+		addEntry();
 	};
 
 	return (
-		<Form>
+		<Form style={{ marginTop: '10px' }}>
 			<EntryForm
 				description={description}
 				value={value}

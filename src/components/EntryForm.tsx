@@ -36,7 +36,7 @@ export const EntryForm: React.FC<EntryFormType> = ({
 				<Form.Input
 					type="number"
 					value={value}
-					width={2}
+					width={4}
 					label="Value"
 					onChange={valueHandler}
 					placeholder="100.00"

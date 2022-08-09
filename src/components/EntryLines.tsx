@@ -9,6 +9,7 @@ type EntryLinesType = {
 	updateEntries: (id: number) => void;
 	setIsOpen: (isOpen: boolean) => void;
 };
+
 const EntryLines: React.FC<EntryLinesType> = ({
 	entries,
 	deleteEntry,

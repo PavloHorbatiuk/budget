@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Form, Modal } from 'semantic-ui-react';
 import { EntryForm } from './EntryForm';
 
 type ModalType = {
@@ -27,14 +27,16 @@ export const ModalEdit: React.FC<ModalType> = ({
 		<Modal open={isOpen}>
 			<Modal.Header>Edit entry</Modal.Header>
 			<Modal.Content>
-				<EntryForm
-					description={description}
-					value={value}
-					check={check}
-					setDescription={setDescription}
-					setValue={setValue}
-					setCheck={setCheck}
-				/>
+				<Form>
+					<EntryForm
+						description={description}
+						value={value}
+						check={check}
+						setDescription={setDescription}
+						setValue={setValue}
+						setCheck={setCheck}
+					/>
+				</Form>
 			</Modal.Content>
 			<Modal.Actions>
 				<Button onClick={() => setIsOpen(false)}>Close</Button>
