@@ -36,6 +36,16 @@ function App() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen]);
 
+	useEffect(() => {
+		let incomes = 0;
+		let expenses = 0;
+		entries.forEach(e => {
+			if (!e.isExpensive) incomes += e.price;
+			else expenses += e.price;
+		});
+		let total = incomes + expenses;
+	}, [entries]);
+
 	const deleteEntry = (id: number) => {
 		const result = entries.filter(f => f.id !== id);
 		setEntries(result);
