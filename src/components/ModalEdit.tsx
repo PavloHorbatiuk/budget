@@ -7,10 +7,10 @@ type ModalType = {
 	setIsOpen: (isOpen: boolean) => void;
 	description: string;
 	value: string | number;
-	check: boolean;
+	isExpense: boolean;
 	setDescription: (value: string) => void;
 	setValue: (value: string) => void;
-	setCheck: (isExpensive: boolean) => void;
+	setIsExpense: (isExpensive: boolean) => void;
 };
 
 export const ModalEdit: React.FC<ModalType> = ({
@@ -18,10 +18,10 @@ export const ModalEdit: React.FC<ModalType> = ({
 	setIsOpen,
 	description,
 	value,
-	check,
+	isExpense,
 	setDescription,
 	setValue,
-	setCheck,
+	setIsExpense,
 }) => {
 	return (
 		<Modal open={isOpen}>
@@ -31,10 +31,10 @@ export const ModalEdit: React.FC<ModalType> = ({
 					<EntryForm
 						description={description}
 						value={value}
-						check={check}
+						isExpense={isExpense}
 						setDescription={setDescription}
 						setValue={setValue}
-						setCheck={setCheck}
+						setIsExpense={setIsExpense}
 					/>
 				</Form>
 			</Modal.Content>

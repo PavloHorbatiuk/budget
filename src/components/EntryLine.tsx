@@ -1,14 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Grid, Icon, Segment } from 'semantic-ui-react';
+import { deleteEntriesAC } from './reducers/entires.reducer';
 
 type EntryLineType = {
-	id: number;
+	id: string;
 	description: string;
 	price: number;
 	isExpensive: boolean;
-	deleteEntry: (id: number) => void;
 	setIsOpen: (isOpen: boolean) => void;
-	updateEntries: (id: number) => void;
+	updateEntries: (id: string) => void;
 };
 
 const EntryLine: React.FC<EntryLineType> = ({
@@ -16,11 +17,11 @@ const EntryLine: React.FC<EntryLineType> = ({
 	description,
 	price,
 	isExpensive,
-	deleteEntry,
-	setIsOpen,
 	updateEntries,
 }) => {
+	const dispatch = useDispatch();
 	const finaleColor = isExpensive ? 'red' : 'green';
+
 	return (
 		<Segment color={finaleColor}>
 			<Grid columns={3} textAlign="right">
@@ -35,7 +36,7 @@ const EntryLine: React.FC<EntryLineType> = ({
 						<Icon name="edit" bordered onClick={() => updateEntries(id)} />
 						<Icon
 							style={{ cursor: 'pointer' }}
-							onClick={() => deleteEntry(id)}
+							onClick={() => dispatch(deleteEntriesAC(id))}
 							name="trash"
 							bordered
 						/>

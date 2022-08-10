@@ -3,24 +3,24 @@ import { Checkbox, Form, Segment } from 'semantic-ui-react';
 type EntryFormType = {
 	description: string;
 	value: string | number;
-	check: boolean;
+	isExpense: boolean;
 	setDescription: (value: string) => void;
 	setValue: (value: string) => void;
-	setCheck: (isExpensive: boolean) => void;
+	setIsExpense: (isExpensive: boolean) => void;
 };
 export const EntryForm: React.FC<EntryFormType> = ({
 	description,
 	value,
-	check,
+	isExpense,
 	setDescription,
 	setValue,
-	setCheck,
+	setIsExpense,
 }) => {
 	const valueHandler = (e: ChangeEvent<HTMLInputElement>) =>
 		setValue(e.currentTarget.value);
 	const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) =>
 		setDescription(e.currentTarget.value);
-	const checkOnchange = () => setCheck(!check);
+	const checkOnchange = () => setIsExpense(!isExpense);
 
 	return (
 		<Fragment>
@@ -46,7 +46,7 @@ export const EntryForm: React.FC<EntryFormType> = ({
 			</Form.Group>
 			<Segment compact>
 				<Checkbox
-					checked={check}
+					checked={isExpense}
 					label="Is expensive?"
 					onChange={checkOnchange}
 					toggle

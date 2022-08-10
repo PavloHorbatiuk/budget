@@ -6,15 +6,17 @@ import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
 import EntryLines from './components/EntryLines';
 import { ModalEdit } from './components/ModalEdit';
-import { initialEntryType } from './components/reducers/entires.reducer';
+import { useAppSelector } from './components/store/state';
+import { v4 } from 'uuid';
 
 function App() {
-	const [entries, setEntries] = useState<initialEntryType[]>(initialEntry);
+
+	const entries = useAppSelector(state => state.entries);
 	const [description, setDescription] = useState('');
 	const [value, setValue] = useState<string | number>('');
 	const [isExpense, setIsExpense] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
-	const [entryId, setEntryId] = useState<number>();
+	const [entryId, setEntryId] = useState<string>();
 	const [totalExpense, setTotalExpense] = useState(0);
 	const [totalIncomes, setTotalIncomes] = useState(0);
 	const [totalBudget, setTotalBudget] = useState(0);
@@ -22,12 +24,14 @@ function App() {
 	useEffect(() => {
 		if (!isOpen && entryId) {
 			const index = entries.findIndex(i => i.id === entryId);
+
 			const copyEntries = [...entries];
+			copyEntries[index] = { ...copyEntries[index] };
 			const updateEntry = copyEntries[index];
 			updateEntry.description = description;
 			updateEntry.isExpensive = isExpense;
 			updateEntry.price = +value;
-			setEntries(copyEntries);
+			// setEntries(copyEntries);
 			resetEntry();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,30 +50,13 @@ function App() {
 		setTotalExpense(expenses);
 	}, [entries]);
 
-	const deleteEntry = (id: number) => {
-		const result = entries.filter(f => f.id !== id);
-		setEntries(result);
-	};
-	const makeId = new Date().getTime();
-
-	const addEntry = () => {
-		const result = entries.concat({
-			id: makeId,
-			description,
-			price: +value,
-			isExpensive: isExpense,
-		});
-		setEntries(result);
-		resetEntry();
-	};
-
 	const resetEntry = () => {
 		setValue('');
 		setDescription('');
 		setIsExpense(true);
 	};
 
-	const updateEntries = (id: number) => {
+	const updateEntries = (id: string) => {
 		if (id) {
 			const index = entries.findIndex(e => e.id === id);
 			const entry = entries[index];
@@ -80,7 +67,6 @@ function App() {
 			setEntryId(id);
 		}
 	};
-	const isDisabled = description.length < 2 || value === '';
 
 	return (
 		<div className="App">
@@ -114,29 +100,19 @@ function App() {
 				<MainHeader title={'History'} type={'h3'} />
 				<EntryLines
 					entries={entries}
-					deleteEntry={deleteEntry}
 					updateEntries={updateEntries}
 					setIsOpen={setIsOpen}
 				/>
-				<NewEntryForm
-					addEntry={addEntry}
-					description={description}
-					value={value}
-					check={isExpense}
-					setDescription={setDescription}
-					setValue={setValue}
-					setCheck={setIsExpense}
-					isDisabled={isDisabled}
-				/>
+				<NewEntryForm />
 				<ModalEdit
 					isOpen={isOpen}
 					setIsOpen={setIsOpen}
 					description={description}
 					value={value}
-					check={isExpense}
+					isExpense={isExpense}
 					setDescription={setDescription}
 					setValue={setValue}
-					setCheck={setIsExpense}
+					setIsExpense={setIsExpense}
 				/>
 			</Container>
 		</div>
@@ -144,23 +120,3 @@ function App() {
 }
 
 export default App;
-let initialEntry = [
-	{
-		id: 1,
-		description: 'beer',
-		price: 2,
-		isExpensive: false,
-	},
-	{
-		id: 2,
-		description: 'milk',
-		price: 3,
-		isExpensive: false,
-	},
-	{
-		id: 3,
-		description: 'samsung S22',
-		price: 1200,
-		isExpensive: true,
-	},
-];

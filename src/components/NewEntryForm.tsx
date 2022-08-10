@@ -2,41 +2,33 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 import ButtonSaveOrCancel from './ButtonSaveOrCancel';
 import { EntryForm } from './EntryForm';
+import { useEntryDetails } from './../hooks/useEntryDetails';
 
-type FormType = {
-	addEntry: () => void;
-	description: string;
-	value: string | number;
-	check: boolean;
-	setDescription: (value: string) => void;
-	setValue: (value: string) => void;
-	setCheck: (isExpensive: boolean) => void;
-	isDisabled: boolean;
-};
+type FormType = {};
 
-export const NewEntryForm: React.FC<FormType> = ({
-	addEntry,
-	description,
-	value,
-	check,
-	setDescription,
-	setValue,
-	setCheck,
-	isDisabled,
-}) => {
-	const clickHandler = () => {
-		addEntry();
-	};
+export const NewEntryForm: React.FC<FormType> = ({}) => {
+	const {
+		description,
+		setDescription,
+		value,
+		setValue,
+		setIsExpense,
+		isExpense,
+		addEntry,
+		isDisabled,
+	} = useEntryDetails();
+
+	const clickHandler = () => addEntry();
 
 	return (
 		<Form style={{ marginTop: '10px' }}>
 			<EntryForm
 				description={description}
 				value={value}
-				check={check}
+				isExpense={isExpense}
 				setDescription={setDescription}
 				setValue={setValue}
-				setCheck={setCheck}
+				setIsExpense={setIsExpense}
 			/>
 			<ButtonSaveOrCancel
 				disabled={isDisabled}
