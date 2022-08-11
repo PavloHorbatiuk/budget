@@ -5,24 +5,13 @@ import { initialEntryType } from './reducers/entires.reducer';
 
 type EntryLinesType = {
 	entries: initialEntryType[];
-	updateEntries: (id: string) => void;
-	setIsOpen: (isOpen: boolean) => void;
 };
 
-const EntryLines: React.FC<EntryLinesType> = ({
-	entries,
-	setIsOpen,
-	updateEntries,
-}) => {
+const EntryLines: React.FC<EntryLinesType> = ({ entries }) => {
 	return (
 		<Container>
 			{entries.map(e => (
-				<EntryLine
-					key={e.id}
-					{...e}
-					setIsOpen={setIsOpen}
-					updateEntries={updateEntries}
-				/>
+				<EntryLine key={e.id} {...e} />
 			))}
 		</Container>
 	);

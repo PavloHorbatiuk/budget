@@ -1,9 +1,9 @@
 import React, { ChangeEvent, Fragment } from 'react';
 import { Checkbox, Form, Segment } from 'semantic-ui-react';
 type EntryFormType = {
-	description: string;
-	value: string | number;
-	isExpense: boolean;
+	description?: string;
+	value?: string | number;
+	isExpense?: boolean;
 	setDescription: (value: string) => void;
 	setValue: (value: string) => void;
 	setIsExpense: (isExpensive: boolean) => void;
@@ -18,8 +18,10 @@ export const EntryForm: React.FC<EntryFormType> = ({
 }) => {
 	const valueHandler = (e: ChangeEvent<HTMLInputElement>) =>
 		setValue(e.currentTarget.value);
+
 	const descriptionHandler = (e: ChangeEvent<HTMLInputElement>) =>
 		setDescription(e.currentTarget.value);
+
 	const checkOnchange = () => setIsExpense(!isExpense);
 
 	return (

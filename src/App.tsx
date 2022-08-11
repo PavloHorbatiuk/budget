@@ -7,35 +7,21 @@ import DisplayBalance from './components/DisplayBalance';
 import EntryLines from './components/EntryLines';
 import { ModalEdit } from './components/ModalEdit';
 import { useAppSelector } from './components/store/state';
-import { v4 } from 'uuid';
+import { initialEntryType } from './components/reducers/entires.reducer';
 
 function App() {
-
 	const entries = useAppSelector(state => state.entries);
-	const [description, setDescription] = useState('');
-	const [value, setValue] = useState<string | number>('');
-	const [isExpense, setIsExpense] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
-	const [entryId, setEntryId] = useState<string>();
+	const { isOpen, id } = useAppSelector(state => state.modals);
+
+	const [entry, setEntry] = useState<initialEntryType>();
 	const [totalExpense, setTotalExpense] = useState(0);
 	const [totalIncomes, setTotalIncomes] = useState(0);
 	const [totalBudget, setTotalBudget] = useState(0);
 
 	useEffect(() => {
-		if (!isOpen && entryId) {
-			const index = entries.findIndex(i => i.id === entryId);
-
-			const copyEntries = [...entries];
-			copyEntries[index] = { ...copyEntries[index] };
-			const updateEntry = copyEntries[index];
-			updateEntry.description = description;
-			updateEntry.isExpensive = isExpense;
-			updateEntry.price = +value;
-			// setEntries(copyEntries);
-			resetEntry();
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen]);
+		const index = entries.findIndex(f => f.id === id);
+		setEntry(entries[index]);
+	}, [isOpen, id]);
 
 	useEffect(() => {
 		let incomes = 0;
@@ -49,24 +35,6 @@ function App() {
 		setTotalIncomes(incomes);
 		setTotalExpense(expenses);
 	}, [entries]);
-
-	const resetEntry = () => {
-		setValue('');
-		setDescription('');
-		setIsExpense(true);
-	};
-
-	const updateEntries = (id: string) => {
-		if (id) {
-			const index = entries.findIndex(e => e.id === id);
-			const entry = entries[index];
-			setDescription(entry.description);
-			setValue(entry.price);
-			setIsExpense(entry.isExpensive);
-			setIsOpen(true);
-			setEntryId(id);
-		}
-	};
 
 	return (
 		<div className="App">
@@ -98,22 +66,9 @@ function App() {
 					</Grid>
 				</Segment>
 				<MainHeader title={'History'} type={'h3'} />
-				<EntryLines
-					entries={entries}
-					updateEntries={updateEntries}
-					setIsOpen={setIsOpen}
-				/>
+				<EntryLines entries={entries} />
 				<NewEntryForm />
-				<ModalEdit
-					isOpen={isOpen}
-					setIsOpen={setIsOpen}
-					description={description}
-					value={value}
-					isExpense={isExpense}
-					setDescription={setDescription}
-					setValue={setValue}
-					setIsExpense={setIsExpense}
-				/>
+				<ModalEdit isOpen={isOpen} {...entry} />
 			</Container>
 		</div>
 	);
