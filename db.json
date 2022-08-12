@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "id": "1",
+      "description": "beer",
+      "value": 2,
+      "isExpense": false
+    },
+    {
+      "id": "2",
+      "description": "milk",
+      "value": 3,
+      "isExpense": false
+    },
+    {
+      "id": "3",
+      "description": "samsung S22",
+      "value": 1200,
+      "isExpense": true
+    }
+  ]
+}

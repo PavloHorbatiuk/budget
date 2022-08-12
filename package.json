@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.0",
     "@types/react-redux": "^7.1.24",
     "@types/uuid": "^8.3.4",
+    "concurrently": "^7.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
@@ -26,9 +27,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:all": "concurrently \"yarn start\" \"yarn backend\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend": "json-server --watch db.json --port 3001"
   },
   "eslintConfig": {
     "extends": [

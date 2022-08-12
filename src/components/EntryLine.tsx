@@ -7,15 +7,15 @@ import { modalEditIsOpenRedux } from './reducers/modal.reducer';
 type EntryLineType = {
 	id: string;
 	description: string;
-	price: number;
-	isExpensive: boolean;
+	value: string | number;
+	isExpense: boolean;
 };
 
 const EntryLine: React.FC<EntryLineType> = ({
 	id,
 	description,
-	price,
-	isExpensive = false,
+	value: price,
+	isExpense: isExpensive = false,
 }) => {
 	const dispatch = useDispatch();
 	const finaleColor = isExpensive ? 'red' : 'green';
