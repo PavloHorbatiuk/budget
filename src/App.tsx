@@ -21,7 +21,7 @@ function App() {
 	useEffect(() => {
 		const index = entries.findIndex(f => f.id === id);
 		setEntry(entries[index]);
-	}, [isOpen, id]);
+	}, [isOpen, id, entries]);
 
 	useEffect(() => {
 		let incomes = 0;

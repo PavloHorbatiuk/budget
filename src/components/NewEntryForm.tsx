@@ -20,7 +20,7 @@ export const NewEntryForm: React.FC<FormType> = ({}) => {
     } = useEntryDetails();
 
     const clickHandler = () => addEntry();
-    console.log(isExpense)
+   
     return (
         <Form style={{marginTop: '10px'}}>
             <EntryForm

@@ -2,9 +2,9 @@
   "entries": [
     {
       "id": "1",
-      "description": "beer",
-      "value": 2,
-      "isExpense": false
+      "description": "hello from postman ",
+      "value": 100,
+      "isExpense": true
     },
     {
       "id": "2",
