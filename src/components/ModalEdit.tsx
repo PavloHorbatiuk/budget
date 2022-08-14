@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, Form, Modal} from 'semantic-ui-react';
-import {EntryForm} from './EntryForm';
-import {useDispatch} from 'react-redux';
-import {modalEditCloseRedux} from './reducers/modal.reducer';
-import {useEntryDetails} from '../hooks/useEntryDetails';
+import { Button, Form, Modal } from 'semantic-ui-react';
+import { EntryForm } from './EntryForm';
+import { useDispatch } from 'react-redux';
+import { modalEditCloseRedux } from './reducers/modal.reducer';
+import { useEntryDetails } from '../hooks/useEntryDetails';
 
 type ModalType = {
 	id?: string;
@@ -14,15 +14,15 @@ type ModalType = {
 };
 
 export const ModalEdit: React.FC<ModalType> = ({
-												   id,
-												   isOpen,
-												   description,
-												   value,
-												   isExpense,
-											   }) => {
+	id,
+	isOpen,
+	description,
+	value,
+	isExpense,
+}) => {
 	const valueString = String(value);
 	const entryUpdate = useEntryDetails(description, valueString, isExpense);
-	const entryId: string = id as string
+	const entryId: string = id as string;
 	const dispatch = useDispatch();
 
 	return (
