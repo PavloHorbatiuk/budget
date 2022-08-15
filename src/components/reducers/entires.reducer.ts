@@ -38,16 +38,16 @@ export const EntriesReducer = (
 ): initialEntryType[] => {
 	switch (action.type) {
 		case ACTION_TYPE.ADD_ENTRIES: {
-			const newEntries = state.concat({...action.payload});
-			return newEntries
+			const newEntries = state.concat({ ...action.payload });
+			return newEntries;
 		}
 		case ACTION_TYPE.DELETE_ENTRIES:
 			return state.filter(entry => entry.id !== action.payload);
 		case ACTION_TYPE.UPDATE_ENTRY:
 			const copyEntries = [...state];
-			const index = copyEntries.findIndex(i => i.id === action.payload.id)
-			copyEntries[index]={...action.payload.entry}
-			return copyEntries
+			const index = copyEntries.findIndex(i => i.id === action.payload.id);
+			copyEntries[index] = { ...action.payload.entry };
+			return copyEntries;
 		default:
 			return state;
 	}
@@ -68,7 +68,7 @@ export const deleteEntriesAC = (id: string) =>
 export const updateEntryRedux = (id: string, entry: initialEntryType) =>
 	({
 		type: ACTION_TYPE.UPDATE_ENTRY,
-		payload: {id, entry},
+		payload: { id, entry },
 	} as const);
 
 export type ActionsType =
