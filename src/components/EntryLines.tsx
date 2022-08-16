@@ -10,9 +10,7 @@ type EntryLinesType = {
 const EntryLines: React.FC<EntryLinesType> = ({ entries }) => {
 	return (
 		<Container>
-			{entries.map(e => (
-				<EntryLine key={e.id} {...e} />
-			))}
+			{entries.length && entries.map(e => <EntryLine key={e.id} {...e} />)}
 		</Container>
 	);
 };

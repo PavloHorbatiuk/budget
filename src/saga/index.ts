@@ -1,5 +1,6 @@
-import {sagaTest} from "./saga.test";
+import * as entriesSaga from './entriesSaga';
 
-export function initSaga(sagaMiddleware: { run: { bind: (value: any, index: number, array: any[]) => void; }; }) {
-    Object.values(sagaTest()).forEach(sagaMiddleware.run.bind)
+
+export function initSaga(sagaMiddleware: any) {
+	Object.values(entriesSaga).forEach(sagaMiddleware.run.bind(sagaMiddleware));
 }

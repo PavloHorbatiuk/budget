@@ -7,9 +7,14 @@ import DisplayBalance from './components/DisplayBalance';
 import EntryLines from './components/EntryLines';
 import { ModalEdit } from './components/ModalEdit';
 import { useAppSelector } from './components/store/state';
-import { initialEntryType } from './components/reducers/entires.reducer';
+import {
+	getAllEntriesRedux,
+	initialEntryType,
+} from './components/reducers/entires.reducer';
+import { useDispatch } from 'react-redux';
 
 function App() {
+	const dispatch = useDispatch();
 	const entries = useAppSelector(state => state.entries);
 	const { isOpen, id } = useAppSelector(state => state.modals);
 
@@ -35,6 +40,9 @@ function App() {
 		setTotalIncomes(incomes);
 		setTotalExpense(expenses);
 	}, [entries]);
+	useEffect(() => {
+		dispatch(getAllEntriesRedux());
+	}, [dispatch]);
 
 	return (
 		<div className="App">
