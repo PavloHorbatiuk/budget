@@ -17,7 +17,8 @@ export const useEntryDetails = (desc = '', val = '', isExs = true) => {
 		setDescription(desc);
 		setValue(val);
 		setIsExpense(isExs);
-	}, [desc, val, isExpense]);
+		console.log('useEffect run');
+	}, [desc, val, isExs]);
 
 	const addEntry = () => {
 		dispatch(
