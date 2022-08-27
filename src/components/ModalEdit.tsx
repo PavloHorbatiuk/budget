@@ -22,7 +22,7 @@ export const ModalEdit: React.FC<ModalType> = ({
 }) => {
 	const valueString = String(value);
 	const entryUpdate = useEntryDetails(description, valueString, isExpense);
-	const entryId: string = id as string;
+	const entryId: string = id!;
 	const dispatch = useDispatch();
 
 	return (
